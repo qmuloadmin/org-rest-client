@@ -408,7 +408,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "org-rest-client"
+name = "org_rest_client"
 version = "0.1.0"
 dependencies = [
  "reqwest",

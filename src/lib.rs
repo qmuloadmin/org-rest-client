@@ -9,6 +9,7 @@ pub enum Method {
     PUT,
 }
 
+#[derive(Debug)]
 pub struct Error {
     pub status: u16,
     pub message: String,
