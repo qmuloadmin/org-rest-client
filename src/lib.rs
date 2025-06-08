@@ -1,6 +1,8 @@
 use reqwest::{self, header::IntoHeaderName};
 use serde_json::{self, to_string_pretty, Value};
 
+pub use reqwest::header::HeaderName;
+
 pub enum Method {
     GET,
     POST,
