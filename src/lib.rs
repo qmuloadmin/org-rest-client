@@ -1,4 +1,4 @@
-use reqwest;
+use reqwest::{self, header::IntoHeaderName};
 use serde_json::{self, to_string_pretty, Value};
 
 pub enum Method {
@@ -29,6 +29,23 @@ impl RestClient {
             verbose,
         }
     }
+
+	// this is a bit hacky. We should expose the builder but this is an alternative to
+	// new_authed to use custom auth schemes.
+	pub fn with_header<T: IntoHeaderName>(name: T, value: String, verbose: bool) -> Self {
+		let mut headers = reqwest::header::HeaderMap::new();
+        headers.insert(
+            name,
+            reqwest::header::HeaderValue::from_str(&value).unwrap(),
+        );
+        RestClient {
+            client: reqwest::Client::builder()
+                .default_headers(headers)
+                .build()
+                .unwrap(),
+            verbose,
+        }
+	}
 
     pub fn new_authed(jwt: String, verbose: bool) -> Self {
         let mut headers = reqwest::header::HeaderMap::new();
